@@ -1,0 +1,430 @@
+/* CSS Variables */
+:root {
+    --toc-bg: #ffffff;
+    --toc-border-color: #e2e8f0;
+    --toc-text-color: #64748b;
+    --toc-hover-color: #1e293b;
+    --toc-active-color: #3b82f6;
+    --toc-active-bg: #eff6ff;
+    --toc-hover-bg: #f8fafc;
+    --toc-number-color: #94a3b8;
+    --toc-progress-bg: #f1f5f9;
+    --toc-scrollbar: #cbd5e1;
+    --toc-title-color: #1e293b;
+}
+
+/* Основен Layout */
+.content-area {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.content-container {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr); /* TOC отляво */
+    gap: 2rem;
+}
+
+/* Main Content */
+.main-content {
+    min-width: 0;
+}
+
+.entry-content-wrap {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.entry-header {
+    margin-bottom: 2rem;
+}
+
+.entry-title {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+}
+
+.entry-meta {
+    color: var(--toc-text-color);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.entry-meta span {
+    margin-right: 1rem;
+}
+
+/* TOC Sidebar */
+.toc-sidebar {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+.toc-inner {
+    background: var(--toc-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.toc-inner:hover {
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+}
+
+.toc-inner h3 {
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    color: var(--toc-title-color);
+    border-bottom: 1px solid var(--toc-border-color);
+    font-weight: 600;
+}
+
+/* Progress Bar */
+.toc-progress-container {
+    height: 4px;
+    background: var(--toc-progress-bg);
+    position: relative;
+}
+
+.toc-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--toc-active-color);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-out;
+}
+
+.toc-progress-bar::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--toc-active-color);
+    border-radius: 50%;
+    animation: progressPulse 2s infinite;
+}
+
+/* TOC Content */
+.toc-content {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--toc-scrollbar) transparent;
+}
+
+.toc-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.toc-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toc-content::-webkit-scrollbar-thumb {
+    background-color: var(--toc-scrollbar);
+    border-radius: 2px;
+}
+
+/* TOC List */
+.toc-list,
+.toc-sublist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-sublist {
+    margin-left: 1.5rem;
+    border-left: 1px solid var(--toc-border-color);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* TOC Items */
+.toc-item {
+    position: relative;
+    margin: 0.25rem 0;
+    animation: slideIn 0.3s ease-out backwards;
+}
+
+.toc-item:nth-child(n) {
+    animation-delay: calc(0.1s * var(--item-index, 0));
+}
+
+.toc-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    color: var(--toc-text-color);
+    text-decoration: none;
+    font-size: 0.925rem;
+    border-radius: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.toc-link:hover {
+    color: var(--toc-hover-color);
+    background: var(--toc-hover-bg);
+}
+
+/* TOC Number */
+.toc-number {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--toc-number-color);
+    margin-right: 0.75rem;
+    min-width: 1.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* TOC Text */
+.toc-text {
+    flex: 1;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.4;
+}
+
+/* Active State */
+.toc-item.active {
+    transform: translateX(4px);
+}
+
+.toc-item.active > .toc-link {
+    color: var(--toc-active-color);
+    background: var(--toc-active-bg);
+    font-weight: 500;
+}
+
+.toc-item.active > .toc-link .toc-number {
+    color: var(--toc-active-color);
+}
+
+/* Item Progress */
+.toc-item-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--toc-progress-bg);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.toc-item.active > .toc-item-progress {
+    background: var(--toc-active-color);
+}
+
+/* Focus States */
+.toc-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--toc-active-color);
+}
+
+.toc-link:focus:not(:focus-visible) {
+    box-shadow: none;
+}
+
+/* Empty State */
+.toc-empty {
+    color: var(--toc-text-color);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes progressPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .content-container {
+        grid-template-columns: 250px minmax(0, 1fr);
+        gap: 1.5rem;
+    }
+
+    .content-area {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-area {
+        padding: 1rem;
+    }
+
+    .content-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .toc-sidebar {
+        position: relative;
+        top: 0;
+        order: -1;
+    }
+
+    .toc-inner {
+        margin-bottom: 1rem;
+        border: 1px solid var(--toc-border-color);
+    }
+
+    .toc-content {
+        max-height: 300px;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
+
+    .toc-inner:not(.expanded) .toc-content {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border: none;
+        background: none;
+        padding: 1rem 1.5rem;
+        color: var(--toc-title-color);
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .toc-toggle::after {
+        content: '';
+        width: 0.75rem;
+        height: 0.75rem;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg);
+        transition: transform 0.3s ease;
+    }
+
+    .toc-inner.expanded .toc-toggle::after {
+        transform: rotate(-135deg);
+    }
+}
+
+/* Print styles */
+@media print {
+    .toc-sidebar {
+        display: none;
+    }
+
+    .content-area {
+        display: block;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .content-container {
+        display: block;
+    }
+}
+/* Добавете в enhanced-toc.css */
+@font-face {
+    font-family: 'Rank-Math';
+    font-display: swap;
+    src: url('/wp-content/plugins/seo-by-rank-math/assets/admin/fonts/Rank-Math.ttf?v1.0.76') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* Предотвратяване на FOUC */
+.entry-content {
+    opacity: 1 !important;
+    visibility: visible !important;
+    min-height: 100px;
+}
+
+.toc-content {
+    opacity: 1 !important;
+    visibility: visible !important;
+    min-height: 50px;
+}
+
+/* Стилове за cookie notice */
+#minimal-cookie-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+#minimal-cookie-notice button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#minimal-cookie-notice button:hover {
+    background: #2563eb;
+}

@@ -1,0 +1,542 @@
+﻿:root {
+    --primary-green: #48C201;
+    --soft-green: rgba(72, 194, 1, 0.05);
+    --hover-green: rgba(72, 194, 1, 0.1);
+    --background: #FFFFFF;
+    --card-bg: #F8F9FA;
+    --border-light: #E9ECEF;
+    --text-primary: #2D3436;
+    --text-secondary: #636E72;
+    --shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Табове навигация */
+.sprouts-tabs {
+    margin-top: 40px;
+}
+
+.sprouts-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 2px;
+}
+
+.sprouts-tab-button {
+    background: transparent;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1em;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.sprouts-tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-green);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.sprouts-tab-button:hover {
+    color: var(--primary-green);
+}
+
+.sprouts-tab-button.active {
+    color: var(--primary-green);
+}
+
+.sprouts-tab-button.active::after {
+    transform: scaleX(1);
+}
+
+/* Съдържание на табовете */
+.sprouts-tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.sprouts-tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Мрежа с подкатегории */
+.subcategories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Карти на подкатегориите */
+.subcategory-card {
+    background: var(--background);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.subcategory-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* Заглавие на подкатегория */
+.subcategory-title {
+    display: block;
+    font-size: 1.3em;
+    color: var(--text-primary);
+    text-decoration: none;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 600;
+}
+
+.subcategory-title:hover {
+    color: var(--primary-green);
+}
+
+/* Описание на подкатегория */
+.subcategory-description {
+    color: var(--text-secondary);
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Списък със свързани публикации */
+.subcategory-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.subcategory-post-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    background: var(--soft-green);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.subcategory-post-link:hover {
+    background: var(--hover-green);
+    color: var(--primary-green);
+    transform: translateX(4px);
+}
+
+/* Responsive дизайн */
+@media (max-width: 768px) {
+    .sprouts-tabs-nav {
+        gap: 4px;
+    }
+
+    .sprouts-tab-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+
+    .subcategories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .subcategory-card {
+        padding: 20px;
+    }
+}
+/* Прогрес бар */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 3px;
+    background: var(--border-light);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: var(--primary-green);
+    transition: width 0.2s ease;
+}
+
+/* Breadcrumbs навигация */
+.sprout-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.sprout-breadcrumbs a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.sprout-breadcrumbs a:hover {
+    color: var(--primary-green);
+}
+
+.sprout-breadcrumbs i {
+    font-size: 0.8em;
+    color: var(--primary-green);
+}
+
+.current-sprout {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Основно изображение */
+.sprout-featured-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.sprout-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Основно съдържание */
+.sprout-content-wrapper {
+    margin: 48px 0;
+}
+
+.entry-content {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+/* Етикети */
+.sprout-tags {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+}
+
+.sprout-tag {
+    background: var(--soft-green);
+    color: var(--primary-green);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sprout-tag:hover {
+    background: var(--hover-green);
+    transform: translateY(-1px);
+}
+
+/* Свързани публикации */
+.related-sprouts {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border-light);
+}
+
+.related-sprouts h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+}
+
+.related-sprouts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Карти със свързани публикации */
+.related-sprout-card {
+    background: var(--background);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.related-sprout-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.related-sprout-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.related-sprout-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.related-sprout-content {
+    padding: 20px;
+}
+
+.related-sprout-content h3 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    font-size: 1.2em;
+}
+
+.related-sprout-excerpt {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.read-more {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary-green);
+    font-size: 0.9em;
+}
+
+/* Респонсивност */
+@media (max-width: 768px) {
+    .sprout-content-wrapper {
+        margin: 32px 0;
+    }
+
+    .related-sprouts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .entry-content {
+        font-size: 1em;
+    }
+}
+/* Прогрес бар */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 3px;
+    background: var(--border-light);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: var(--primary-green);
+    transition: width 0.2s ease;
+}
+
+/* Breadcrumbs навигация */
+.sprout-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.sprout-breadcrumbs a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.sprout-breadcrumbs a:hover {
+    color: var(--primary-green);
+}
+
+.sprout-breadcrumbs i {
+    font-size: 0.8em;
+    color: var(--primary-green);
+}
+
+.current-sprout {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Основно изображение */
+.sprout-featured-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.sprout-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Основно съдържание */
+.sprout-content-wrapper {
+    margin: 48px 0;
+}
+
+.entry-content {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+/* Етикети */
+.sprout-tags {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+}
+
+.sprout-tag {
+    background: var(--soft-green);
+    color: var(--primary-green);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sprout-tag:hover {
+    background: var(--hover-green);
+    transform: translateY(-1px);
+}
+
+/* Свързани публикации */
+.related-sprouts {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border-light);
+}
+
+.related-sprouts h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+}
+
+.related-sprouts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Карти със свързани публикации */
+.related-sprout-card {
+    background: var(--background);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.related-sprout-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.related-sprout-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.related-sprout-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.related-sprout-content {
+    padding: 20px;
+}
+
+.related-sprout-content h3 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    font-size: 1.2em;
+}
+
+.related-sprout-excerpt {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.read-more {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary-green);
+    font-size: 0.9em;
+}
+
+/* Респонсивност */
+@media (max-width: 768px) {
+    .sprout-content-wrapper {
+        margin: 32px 0;
+    }
+
+    .related-sprouts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .entry-content {
+        font-size: 1em;
+    }
+}
